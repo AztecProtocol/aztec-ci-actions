@@ -72,13 +72,28 @@ steps:
       foundry-version: "v1.4.1" # default; set "" for latest stable, or override with another version
 ```
 
+### Monorepo layout (contract under a subpath)
+
+If the Aztec contract lives in a sub-package (`contracts/foo/`, `packages/bar/`, etc.), pass `working-directory`:
+
+```yaml
+jobs:
+  tests:
+    uses: defi-wonderland/aztec-ci-actions/.github/workflows/run-tests.yml@<tag>
+    with:
+      working-directory: contracts/foo
+    secrets: inherit
+```
+
+`aztec compile`, `aztec codegen`, `yarn test:js`, and `aztec test` will all run from `contracts/foo/`. `yarn install` and Aztec version detection still run at the repo root, so yarn workspaces and a root-mirrored `config.aztecVersion` keep working.
+
 ## What each action does
 
 ### `setup-aztec`
 
 Full Aztec development environment setup:
 
-1. Node.js 22.17.0 (with yarn cache)
+1. Node.js 24.0.0 (with yarn cache)
 2. Add `~/.aztec` to PATH
 3. Detect version from `config.aztecVersion` in `package.json`
 4. Install Foundry — pinned to `v1.4.1` by default (forge ≥ 1.5 added a `--batch` requirement that breaks Aztec 4.2.0's L1 deploy script). Override via `foundry-version` once Aztec ships a compatible deploy script; pass `""` for latest stable.
