@@ -28,7 +28,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   tests:
-    uses: defi-wonderland/aztec-ci-actions/.github/workflows/run-tests.yml@<tag>
+    uses: AztecProtocol/aztec-ci-actions/.github/workflows/run-tests.yml@<tag>
     secrets: inherit
 ```
 
@@ -41,7 +41,7 @@ on:
   workflow_dispatch:
 jobs:
   pre-release:
-    uses: defi-wonderland/aztec-ci-actions/.github/workflows/pre-release.yml@<tag>
+    uses: AztecProtocol/aztec-ci-actions/.github/workflows/pre-release.yml@<tag>
     secrets: inherit
     permissions:
       contents: write
@@ -64,7 +64,7 @@ Or in `package.json`:
 ```yaml
 steps:
   - uses: actions/checkout@v4
-  - uses: defi-wonderland/aztec-ci-actions/actions/setup-aztec@<tag>
+  - uses: AztecProtocol/aztec-ci-actions/actions/setup-aztec@<tag>
     with:
       start-pxe: "false"
       run-compile: "true"
@@ -79,7 +79,7 @@ If the Aztec contract lives in a sub-package (`contracts/foo/`, `packages/bar/`,
 ```yaml
 jobs:
   tests:
-    uses: defi-wonderland/aztec-ci-actions/.github/workflows/run-tests.yml@<tag>
+    uses: AztecProtocol/aztec-ci-actions/.github/workflows/run-tests.yml@<tag>
     with:
       working-directory: contracts/foo
     secrets: inherit
@@ -135,4 +135,4 @@ Production `npm install` from the npm registry is completely unaffected — pre-
 
 ## Versioning
 
-Pin to `@dev` during development. Tag releases as `v1`, `v1.1`, etc. once stable. Submodules pin to `@v1` (major) for stability.
+Pin to `@main` during development. Tag releases as `v1`, `v1.1`, etc. once stable. Submodules pin to `@v1` (major) for stability.
